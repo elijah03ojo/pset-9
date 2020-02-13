@@ -36,11 +36,9 @@ function init() {
   board = ["", "", "", "", "", "", "", "", ""];
   if (switch_turn_count == 0) {
     turn = "X";
-    console.log("x")
   }
   else if (switch_turn_count == 1) {
     turn = "O"
-    console.log("o")
   }
   win = null;
 
@@ -53,7 +51,6 @@ function switch_turn() {
   else if (switch_turn_count == 1) {
     switch_turn_count = 0
   }
-  console.log(switch_turn_count)
 }
 function render() {
   board.forEach(function(mark, index) {
@@ -81,7 +78,6 @@ function takeTurn(e) {
       board[index] = turn;
       turn = turn === "X" ? "O" : "X";
       win = getWinner();
-
       render();
     }
   }
