@@ -1,44 +1,100 @@
-<!DOCTYPE html>
+///////////////////// CONSTANTS /////////////////////////////////////
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+];
 
-    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    <script defer src="js/app.js"></script>
+///////////////////// APP STATE (VARIABLES) /////////////////////////
 
-    <title>APCSP Tic-Tac-Toe</title>
-  </head>
-  <body>
-    <h1>tic | tac | toe</h1>
-    <table id = "table">
-      <tr>
-        <th class = "wins">X Wins</th>
-        <th class = "wins">O Wins</th>
-      </tr>
-      <tr>
-        <td id="x_wins">0</td>
-        <td id="o_wins">0</td>
-      </tr>
-    </table>
-    <div class="container column">
-      <h2>Turn: X</h2>
-      <div class="container wrap" id="board">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-      </div>
-    <div id="switch">Switch Who Goes First</div>
-    <div id="reset-button">Play Again!</div>
-    </div>
-  </body>
-</html>
+let board;
+let turn;
+let win;
+let x_wins_count = 0
+let o_wins_count = 0
+let switch_turn_count = 0
+///////////////////// CACHED ELEMENT REFERENCES /////////////////////
+
+const squares = Array.from(document.querySelectorAll("#board div"));
+const message = document.querySelector("h2");
+
+///////////////////// EVENT LISTENERS ///////////////////////////////
+
+window.onload = init;
+
+document.getElementById("board").onclick = takeTurn;
+document.getElementById("reset-button").onclick = init;
+document.getElementById("switch").onclick = switch_turn;
+///////////////////// FUNCTIONS /////////////////////////////////////
+function init() {
+  board = ["", "", "", "", "", "", "", "", ""];
+  if (switch_turn_count == 0) {
+    turn = "X";
+  }
+  else if (switch_turn_count == 1) {
+    turn = "O"
+  }
+  win = null;
+
+  render();
+}
+function switch_turn() {
+  if (switch_turn_count == 0) {
+    switch_turn_count = 1
+  }
+  else if (switch_turn_count == 1) {
+    switch_turn_count = 0
+  }
+}
+function render() {
+  board.forEach(function(mark, index) {
+    squares[index].textContent = mark;
+  });
+  if (win === "X") {
+    x_wins_count = x_wins_count + 1
+  }
+  else if (win === "O") {
+    o_wins_count = o_wins_count + 1
+  }
+  x_wins.innerHTML = x_wins_count
+  o_wins.innerHTML = o_wins_count
+  message.textContent =
+    win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
+}
+
+function takeTurn(e) {
+  if (!win) {
+    let index = squares.findIndex(function(square) {
+      return square === e.target;
+    });
+
+    if (board[index] === "") {
+      board[index] = turn;
+      turn = turn === "X" ? "O" : "X";
+      win = getWinner();
+      render();
+    }
+  }
+}
+
+function getWinner() {
+  let winner = null;
+
+  winningConditions.forEach(function(condition, index) {
+    if (
+      board[condition[0]] &&
+      board[condition[0]] === board[condition[1]] &&
+      board[condition[1]] === board[condition[2]]
+    ) {
+      winner = board[condition[0]];
+    }
+  });
+
+  return winner ? winner : board.includes("") ? null : "T";
+}
