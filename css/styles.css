@@ -1,6 +1,7 @@
 body {
   text-align: center;
   font-family: "Roboto", monospace;
+  background-color: lightblue;
 }
 h1 {
   margin: 0 auto;
@@ -12,6 +13,15 @@ h2 {
   font-size: 36px;
   font-weight: lighter;
   margin: 2%;
+}
+a {
+  font-size: 28px;
+  color: blue;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+a:hover {
+  color: navy;
 }
 .wins {
   border: 1px solid rgba(0, 0, 0, 0.75);
@@ -45,12 +55,13 @@ h2 {
   width: 150px;
 }
 .square:hover {
-  background-color: lightgray;
+  background-color: white;
   cursor: pointer;
 }
 #table {
   margin-left: auto;
   margin-right: auto;
+  background-color: white;
 }
 #x_wins {
   border: 1px solid rgba(0, 0, 0, 0.75);
@@ -59,6 +70,7 @@ h2 {
   line-height: 50px;
   user-select: none;
   width: 150px;
+  background-color: white;
 }
 #o_wins {
   border: 1px solid rgba(0, 0, 0, 0.75);
@@ -67,6 +79,7 @@ h2 {
   line-height: 50px;
   user-select: none;
   width: 150px;
+  background-color: white;
 }
 #reset-button {
   background-color: white;
@@ -79,17 +92,13 @@ h2 {
   width: 456px;
 }
 #reset-button:hover {
-  background-color: black;
-  color: white;
+  background-color: lightgray;
+  color: black;
   cursor: pointer;
 }
 #table2 {
   margin-left: auto;
   margin-right: auto;
-}
-#switch:hover {
-  background-color: lightgray;
-  cursor: pointer;
 }
 #switch {
   border: 1px solid rgba(0, 0, 0, 0.75);
@@ -99,4 +108,10 @@ h2 {
   line-height: 50px;
   user-select: none;
   width: 300px;
+  background-color: white;
 }
+#switch:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
